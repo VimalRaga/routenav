@@ -1,7 +1,7 @@
 /* Route Navigator offline cache.
    App files: network first (so updates arrive), cached copy when offline.
    Libraries from CDNs (PDF.js, barcode): cached after first use. Google Maps always needs internet. */
-var C='rn-v1';
+var C='rn-v2';
 var CORE=['./','./index.html','./routenav.js','./icon.png','./manifest.json'];
 var LIBS=['https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js','https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js','https://cdnjs.cloudflare.com/ajax/libs/jsbarcode/3.11.6/JsBarcode.all.min.js'];
 self.addEventListener('install',function(e){e.waitUntil(caches.open(C).then(function(c){return c.addAll(CORE).then(function(){return Promise.all(LIBS.map(function(u){return c.add(u).catch(function(){});}));});}).then(function(){return self.skipWaiting();}));});
